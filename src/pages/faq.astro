@@ -1,0 +1,168 @@
+---
+import Base from '../layouts/Base.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { towns, url } from '../data/site';
+---
+<Base title="FAQ" description="Answers to common questions about Vet Valet: service area, preparing for a visit, and prescription medications.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Commonly asked</span>
+      <h1>Frequently asked <em>questions</em></h1>
+      <p class="lede">Don’t see your question here? <a href={url('/contact/')}>Get in touch</a> and we’ll be happy to help.</p>
+    </div>
+  </section>
+
+  <section class="section faq">
+    <div class="wrap faq-wrap">
+      <details open>
+        <summary>What areas do you serve?</summary>
+        <div class="answer">
+          <p>We proudly provide mobile veterinary services throughout MetroWest. Our service area includes:</p>
+          <ul class="towns">
+            {towns.map((t) => <li class={t.partial ? 'partial' : undefined}>{t.name}{t.partial && <span aria-label="partial coverage">*</span>}</li>)}
+          </ul>
+          <p class="small">* Towns we cover partially. Contact us with your address to confirm you’re in our coverage area.</p>
+          <p>If you’re unsure whether your location is within our service area, please <a href={url('/contact/')}>contact us</a>. We’re happy to help!</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What should I do before a visit?</summary>
+        <div class="answer">
+          <p>
+            Please set up a well-lit, quiet and calm area in your home to help our team comfortably examine your pet. For cats,
+            please try to contain them in a small, quiet space with limited hiding spots. Bathrooms are great for this.
+          </p>
+          <p>
+            If your veterinarian has prescribed anti-anxiety medication for your pet, please give it about 2–3 hours before
+            your scheduled appointment.
+          </p>
+          <p>
+            Annual wellness exams and diarrhea-related sick visits require a fecal sample. If you’re collecting one, collect it
+            as close to your appointment time as possible, place it in a double-sealed bag, and keep it refrigerated.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Where do I get prescription medications for my pet?</summary>
+        <div class="answer">
+          <p>Our online, full-service pharmacy offers a wide range of pet care products, including:</p>
+          <ul class="ticks">
+            <li>Prescription medications</li>
+            <li>Over-the-counter health care items</li>
+            <li>Nutrition products</li>
+          </ul>
+          <p>For your convenience, orders can be placed online and shipped directly to your home.</p>
+          <p class="small">Available to current VetValet clients only.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
+
+<style>
+  .page-hero a {
+    color: var(--navy);
+    font-weight: 600;
+    text-decoration-color: var(--sky);
+    text-underline-offset: 4px;
+  }
+  .faq {
+    padding-top: 0;
+  }
+  .faq-wrap {
+    max-width: 860px;
+  }
+  details {
+    margin-bottom: 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--white);
+    transition: box-shadow 0.2s ease;
+  }
+  details[open] {
+    box-shadow: var(--shadow);
+  }
+  summary {
+    position: relative;
+    padding: 1.5rem 4rem 1.5rem 1.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+    font-weight: 500;
+    color: var(--navy-deep);
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '';
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    border-radius: 50%;
+    background: var(--sky-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23262a6b' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center / 16px no-repeat;
+    transition: transform 0.2s ease;
+  }
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .answer {
+    padding: 0 1.75rem 1.5rem;
+    color: var(--muted);
+  }
+  .answer a {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .towns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .towns li {
+    padding: 0.35em 0.9em;
+    border-radius: 999px;
+    background: var(--sky-soft);
+    color: var(--navy-deep);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  .towns li.partial {
+    background: var(--cream);
+    border: 1px dashed var(--line);
+  }
+  .small {
+    font-size: 0.9063rem;
+  }
+  .ticks {
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .ticks li {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 0.4rem;
+  }
+  .ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--sky) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 10px no-repeat;
+  }
+</style>

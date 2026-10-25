@@ -1,0 +1,105 @@
+---
+import Icon from './Icon.astro';
+import { contact, url } from '../data/site';
+
+interface Props {
+  title?: string;
+  text?: string;
+  button?: string;
+}
+const {
+  button = 'Schedule an appointment',
+  title = 'Take the first step today',
+  text = 'Tell us a little about your pet and where you live, and we’ll be in touch to schedule a visit.',
+} = Astro.props;
+---
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <span class="eyebrow">Connect with us</span>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="cta-actions">
+        <a href={url('/contact/')} class="btn btn-light">{button} <Icon name="arrow" /></a>
+        <a href={contact.callHref} class="cta-phone"><Icon name="phone" /> {contact.callDisplay}</a>
+      </div>
+      <svg class="paw" viewBox="0 0 100 100" aria-hidden="true">
+        <ellipse cx="50" cy="66" rx="22" ry="18" />
+        <ellipse cx="24" cy="40" rx="9" ry="12" transform="rotate(-20 24 40)" />
+        <ellipse cx="41" cy="26" rx="9" ry="12" transform="rotate(-6 41 26)" />
+        <ellipse cx="60" cy="26" rx="9" ry="12" transform="rotate(6 60 26)" />
+        <ellipse cx="77" cy="40" rx="9" ry="12" transform="rotate(20 77 40)" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding-block: 0 clamp(64px, 9vw, 112px);
+  }
+  .cta {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: 2rem 3rem;
+    padding: clamp(36px, 6vw, 72px);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--navy) 0%, #34419a 100%);
+    color: rgb(255 255 255 / 0.85);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .eyebrow {
+    color: var(--sky);
+  }
+  h2 {
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+  p {
+    margin: 0;
+    max-width: 30em;
+  }
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
+    justify-self: end;
+  }
+  .cta-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    color: var(--white);
+    font-weight: 600;
+    text-decoration: none;
+    padding-left: 0.4rem;
+  }
+  .cta-phone :global(svg) {
+    width: 18px;
+    height: 18px;
+    color: var(--sky);
+  }
+  .paw {
+    position: absolute;
+    right: -30px;
+    bottom: -40px;
+    width: 260px;
+    fill: rgb(255 255 255 / 0.06);
+    transform: rotate(-18deg);
+    z-index: -1;
+  }
+  @media (max-width: 760px) {
+    .cta {
+      grid-template-columns: 1fr;
+    }
+    .cta-actions {
+      justify-self: start;
+    }
+  }
+</style>

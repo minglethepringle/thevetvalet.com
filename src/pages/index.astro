@@ -1,0 +1,465 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { contact, url } from '../data/site';
+import hero from '../assets/photos/hero.jpg';
+import mission from '../assets/photos/mission.png';
+import wellness from '../assets/photos/wellness.png';
+import vaccines from '../assets/photos/vaccines.png';
+import laser from '../assets/photos/laser.png';
+import ryan from '../assets/team/deirdre-ryan.png';
+import heininger from '../assets/team/natalie-heininger.jpg';
+import tucker from '../assets/team/tyler-murphy-tucker.png';
+import dantona from '../assets/team/cindy-dantona.png';
+import white from '../assets/team/maureen-white.png';
+
+const services = [
+  {
+    title: 'Wellness & sick exams',
+    image: wellness,
+    text: 'Thorough check-ups, vaccinations and answers to your medical concerns, all in the comfort and safety of your pet’s own environment.',
+  },
+  {
+    title: 'Vaccines & microchips',
+    image: vaccines,
+    text: 'All core and recommended vaccines delivered at home, plus quick, safe microchip placement so your pet can be identified anywhere.',
+  },
+  {
+    title: 'Laser treatment',
+    image: laser,
+    text: 'Gentle, non-invasive laser therapy for arthritis, back pain, post-surgical recovery and ear infections, to ease pain and improve mobility.',
+  },
+];
+
+const steps = [
+  { icon: 'calendar', title: 'Reach out', text: 'Call, text or send us a message with your address and a few details about your pet.' },
+  { icon: 'home', title: 'Prepare a calm space', text: 'Set up a quiet, well-lit spot at home. For cats, a small room like a bathroom works great.' },
+  { icon: 'heart', title: 'We come to you', text: 'Your veterinarian arrives at your door, with no carriers, car rides or waiting rooms.' },
+] as const;
+
+const team = [ryan, heininger, tucker, dantona, white];
+---
+<Base title="Home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Proudly women-owned &amp; privately operated</span>
+        <h1>The veterinarian that <em>comes to you</em></h1>
+        <p class="lede">
+          A trip to the vet can be stressful for you and your pets. Our licensed veterinarians bring expert care directly to
+          your home in the MetroWest area, from routine wellness exams to hospice care.
+        </p>
+        <div class="hero-actions">
+          <a href={url('/contact/')} class="btn btn-primary">Schedule an appointment <Icon name="arrow" /></a>
+          <a href={contact.callHref} class="btn btn-ghost"><Icon name="phone" /> {contact.callDisplay}</a>
+        </div>
+        <ul class="hero-facts">
+          <li><Icon name="pin" /> MetroWest Boston</li>
+          <li><Icon name="clock" /> Mon–Fri, 8:30–4:30</li>
+          <li><Icon name="heart" /> Licensed veterinarians</li>
+        </ul>
+      </div>
+      <div class="hero-media">
+        <div class="arch">
+          <Image src={hero} alt="A Vet Valet veterinarian greeting a curly-haired dog at home" widths={[480, 720, 960]} sizes="(max-width: 860px) 90vw, 480px" loading="eager" fetchpriority="high" />
+        </div>
+        <div class="float-card">
+          <span class="float-icon"><Icon name="home" /></span>
+          <div>
+            <strong>House calls</strong>
+            <span>No carriers, no waiting rooms</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="section mission">
+    <div class="wrap mission-grid">
+      <div class="mission-media">
+        <Image src={mission} alt="A veterinarian gently trimming a cat’s nails" widths={[480, 720, 1000]} sizes="(max-width: 860px) 90vw, 520px" />
+      </div>
+      <div>
+        <span class="eyebrow">Our mission</span>
+        <h2>Compassionate care,<br /> <em>at home</em></h2>
+        <p class="lede">
+          Vet Valet was founded to bring compassionate, professional veterinary support directly to your home, so your furry
+          family members get the best medical attention in a comfortable environment.
+        </p>
+        <p>
+          With years of experience in veterinary medicine, we understand the challenges of traditional clinic visits. Our
+          mission is to provide personalized, stress-free care tailored to your pets, right in your living room.
+        </p>
+        <div class="partner">
+          <strong>Partnered with AdaVet</strong>
+          <p>
+            If your pet needs surgery, additional services or specialized care, we work closely with AdaVet, a full-service
+            animal hospital in Wayland Town Center.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services">
+    <div class="wrap">
+      <div class="section-head services-head">
+        <div>
+          <span class="eyebrow">Our services</span>
+          <h2>Comprehensive mobile vet care</h2>
+        </div>
+        <a href={url('/services/')} class="text-link">See all services &amp; pricing <Icon name="arrow" /></a>
+      </div>
+      <div class="service-grid">
+        {services.map((s) => (
+          <article class="service card">
+            <Image src={s.image} alt="" widths={[400, 640]} sizes="(max-width: 860px) 90vw, 380px" />
+            <div class="service-body">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section steps-section">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">How it works</span>
+        <h2>Vet visits, minus the stress</h2>
+      </div>
+      <ol class="steps">
+        {steps.map((step, i) => (
+          <li>
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="step-icon"><Icon name={step.icon} /></span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section team">
+    <div class="wrap team-inner">
+      <div class="avatars">
+        {team.map((img) => <Image src={img} alt="" width={160} height={160} />)}
+      </div>
+      <div class="team-copy">
+        <span class="eyebrow">Meet the team</span>
+        <h2>A dedicated veterinary team that knows your pet by name</h2>
+        <p>
+          Every pet deserves compassionate care. Our mobile practice lets us build a personal connection with pets and their
+          owners, putting their health and well-being first.
+        </p>
+        <a href={url('/about/')} class="btn btn-ghost">About us <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    padding-block: clamp(40px, 7vw, 88px) clamp(56px, 8vw, 104px);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto auto;
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(ellipse at 70% 40%, var(--sky-soft) 0%, transparent 65%);
+    z-index: -1;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    gap: clamp(40px, 6vw, 80px);
+  }
+  .hero h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .hero-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    margin: 2.25rem 0 0;
+    padding: 1.5rem 0 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .hero-facts li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+  }
+  .hero-facts :global(svg) {
+    width: 17px;
+    height: 17px;
+    color: var(--sky);
+  }
+  .hero-media {
+    position: relative;
+    max-width: 460px;
+    justify-self: center;
+    width: 100%;
+  }
+  .arch {
+    border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 30px 60px -30px rgb(26 29 79 / 0.45);
+    outline: 10px solid var(--white);
+  }
+  .arch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .float-card {
+    position: absolute;
+    left: -36px;
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.2rem 0.9rem 0.9rem;
+    background: var(--white);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    font-size: 0.875rem;
+    line-height: 1.35;
+  }
+  .float-card strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--navy-deep);
+  }
+  .float-card span:not(.float-icon) {
+    color: var(--muted);
+  }
+  .float-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--sky-soft);
+    color: var(--navy);
+  }
+  .float-icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Mission */
+  .mission {
+    background: var(--white);
+  }
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    gap: clamp(40px, 6vw, 88px);
+  }
+  .mission-media img {
+    width: 100%;
+    aspect-ratio: 5 / 6;
+    object-fit: cover;
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 120px;
+  }
+  .mission h2 {
+    margin-bottom: 1.25rem;
+  }
+  .mission p:not(.lede) {
+    color: var(--muted);
+  }
+  .partner {
+    margin-top: 2rem;
+    padding: 1.4rem 1.6rem;
+    border-left: 4px solid var(--sky);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--cream);
+  }
+  .partner strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--navy-deep);
+  }
+  .partner p {
+    margin: 0;
+    font-size: 0.9688rem;
+  }
+
+  /* Services */
+  .services-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: none;
+  }
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .service {
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .service:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1px 2px rgb(26 29 79 / 0.04), 0 24px 40px -16px rgb(26 29 79 / 0.25);
+  }
+  .service img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .service-body {
+    padding: 1.5rem 1.6rem 1.75rem;
+  }
+  .service h3 {
+    margin-bottom: 0.6rem;
+  }
+  .service p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9844rem;
+  }
+
+  /* Steps */
+  .steps-section {
+    background: var(--sand);
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .steps li {
+    position: relative;
+    padding: 2rem 1.75rem;
+    border-radius: var(--radius);
+    background: var(--cream);
+  }
+  .step-num {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.75rem;
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-style: italic;
+    line-height: 1;
+    color: var(--line);
+  }
+  .step-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 1.25rem;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--white);
+  }
+  .step-icon :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+  .steps h3 {
+    margin-bottom: 0.5rem;
+  }
+  .steps p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  /* Team */
+  .team-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    gap: clamp(40px, 6vw, 88px);
+  }
+  .avatars {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+  }
+  .avatars img {
+    grid-column: span 2;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid var(--white);
+    box-shadow: var(--shadow);
+  }
+  .avatars img:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+  .team h2 {
+    margin-bottom: 1.25rem;
+  }
+  .team p {
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid,
+    .mission-grid,
+    .team-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-media {
+      max-width: 380px;
+    }
+    .float-card {
+      left: -8px;
+    }
+    .service-grid,
+    .steps {
+      grid-template-columns: 1fr;
+    }
+    .mission-media {
+      max-width: 520px;
+    }
+    .avatars {
+      max-width: 420px;
+    }
+  }
+</style>

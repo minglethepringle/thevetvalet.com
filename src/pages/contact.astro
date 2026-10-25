@@ -1,0 +1,291 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { contact, FORMSPREE_ID, url } from '../data/site';
+---
+<Base title="Contact" description="Contact Vet Valet to schedule an in-home veterinary visit in MetroWest Boston. Call, text, email or send us a message.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Get in touch</span>
+      <h1>We’re here to <em>help</em></h1>
+      <p class="lede">Send us a message to schedule a visit or ask a question. We’ll get back to you during office hours.</p>
+    </div>
+  </section>
+
+  <section class="section contact">
+    <div class="wrap contact-grid">
+      <aside class="info">
+        <div class="info-card card">
+          <h2>Contact us</h2>
+          <ul>
+            <li>
+              <span class="ic"><Icon name="phone" /></span>
+              <div><span class="label">Call</span><a href={contact.callHref}>{contact.callDisplay}</a></div>
+            </li>
+            <li>
+              <span class="ic"><Icon name="text" /></span>
+              <div><span class="label">Text</span><a href={contact.textHref}>{contact.textDisplay}</a></div>
+            </li>
+            <li>
+              <span class="ic"><Icon name="mail" /></span>
+              <div><span class="label">Email</span><a href={`mailto:${contact.email}`}>{contact.email}</a></div>
+            </li>
+          </ul>
+        </div>
+        <div class="info-card card">
+          <h2>Hours</h2>
+          <ul>
+            {contact.hours.map(([days, time]) => (
+              <li>
+                <span class="ic"><Icon name="clock" /></span>
+                <div><span class="label">{days}</span><strong>{time}</strong></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <a href={url('/careers/')} class="text-link">Employment opportunities <Icon name="arrow" /></a>
+      </aside>
+
+      <div class="form-card card">
+        <h2>Send us a message</h2>
+        <p class="form-intro">Fields marked <span class="req">*</span> are required.</p>
+        <form id="contact-form" action={`https://formspree.io/f/${FORMSPREE_ID}`} method="POST">
+          <input type="hidden" name="_subject" value="New website inquiry: Vet Valet" />
+          <div class="row">
+            <label>
+              <span>Full name <span class="req">*</span></span>
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+            <label>
+              <span>Email <span class="req">*</span></span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+          </div>
+          <div class="row">
+            <label>
+              <span>Phone</span>
+              <input type="tel" name="phone" autocomplete="tel" />
+            </label>
+            <label>
+              <span>City / town <span class="req">*</span></span>
+              <input type="text" name="city" autocomplete="address-level2" required />
+            </label>
+          </div>
+          <label>
+            <span>Pet details <span class="req">*</span></span>
+            <input type="text" name="pet_details" placeholder="e.g. Max, 7-year-old Labrador" required />
+          </label>
+          <label>
+            <span>Message <span class="req">*</span></span>
+            <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
+          </label>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+          <button type="submit" class="btn btn-primary">Send message <Icon name="arrow" /></button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const status = form?.querySelector<HTMLElement>('.status');
+  const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!status || !button) return;
+    button.disabled = true;
+    status.className = 'status';
+    status.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      status.classList.add('ok');
+      status.textContent = 'Thank you! Your message has been sent and we’ll be in touch soon.';
+    } catch {
+      status.classList.add('err');
+      status.textContent = 'Sorry, something went wrong. Please call or email us instead.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .contact {
+    padding-top: 0;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.4fr;
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+  }
+  .info {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .info .text-link {
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+  .info-card {
+    padding: 1.75rem;
+  }
+  .info-card h2,
+  .form-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .info-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+  }
+  .info-card li {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+  }
+  .ic {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: none;
+    border-radius: 12px;
+    background: var(--sky-soft);
+    color: var(--navy);
+  }
+  .ic :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+  .label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .info-card a,
+  .info-card strong {
+    font-weight: 600;
+    color: var(--navy-deep);
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .info-card a:hover {
+    text-decoration: underline;
+  }
+
+  .form-card {
+    padding: clamp(24px, 4vw, 44px);
+  }
+  .form-card h2 {
+    margin-bottom: 0.4rem;
+  }
+  .form-intro {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    margin-bottom: 1.75rem;
+  }
+  form {
+    display: grid;
+    gap: 1.1rem;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  label {
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--navy-deep);
+  }
+  .req {
+    color: var(--red);
+  }
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.85em 1em;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: var(--cream);
+    font: inherit;
+    font-weight: 400;
+    color: var(--ink);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #9a9db5;
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--sky);
+    background: var(--white);
+    box-shadow: 0 0 0 4px var(--sky-soft);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+  .hp {
+    position: absolute;
+    left: -9999px;
+  }
+  button {
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+  button:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+  .status {
+    margin: 0;
+    font-weight: 500;
+  }
+  .status:empty {
+    display: none;
+  }
+  .status.ok {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: #e8f6ee;
+    color: #1e6b43;
+  }
+  .status.err {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: #fdf0ee;
+    color: #a3221b;
+  }
+
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    .form-card {
+      order: -1;
+    }
+  }
+  @media (max-width: 560px) {
+    .row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

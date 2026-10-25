@@ -1,0 +1,301 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const services = [
+  {
+    title: 'Sick & wellness exams',
+    price: '$105',
+    text: 'For a healthy pet, we recommend a visit every six months. At each visit we record all vital signs and give a thorough assessment of your pet’s overall health.',
+  },
+  {
+    title: 'Vaccinations',
+    price: '$40 – $60',
+    text: 'Keep your pet’s vaccinations up to date without the stress of travel or waiting rooms. We give timely, professional vaccinations in the comfort of your home.',
+  },
+  {
+    title: 'Microchipping',
+    price: '$75',
+    text: 'A lost or wandering pet can be heartbreaking. Quick, simple microchip placement helps make sure your pet can be identified anywhere in the world.',
+  },
+  {
+    title: 'Laser treatment',
+    price: 'Varies',
+    note: 'Pricing depends on the size of your pet and the treatment area.',
+    text: 'Many pets live with chronic issues like arthritis, back pain, post-surgical trauma and ear infections. This non-invasive, pain-free treatment stimulates injured cells to support faster healing and recovery.',
+  },
+  {
+    title: 'End-of-life care',
+    price: '$525',
+    text: 'We offer compassionate in-home euthanasia for our established clients, so pets can stay comfortable in a familiar place. We also help coordinate aftercare services.',
+  },
+];
+
+const emergencyHospitals = [
+  { name: 'Angell', town: 'Boston', href: 'https://www.mspca.org/veterinarycare/hospital-locations/boston/24-7-emergency-critical-care' },
+  { name: 'Angell West', town: 'Waltham', href: 'https://www.mspca.org/veterinarycare/hospital-locations/waltham/24-7-emergency-and-critical-care-in-waltham' },
+  { name: 'BluePearl', town: 'Framingham', href: 'https://bluepearlvet.com/hospital/framingham-ma' },
+  { name: 'Massachusetts Veterinary Referral Hospital', town: 'Woburn', href: 'https://www.massvethospital.com' },
+  { name: 'VEG', town: 'Newton', href: 'https://www.veg.com/locations/massachusetts/newton' },
+  { name: 'Westford Veterinary', town: 'Westford', href: 'https://westfordveterinary.com' },
+];
+---
+<Base title="Services" description="In-home veterinary services and pricing: house calls, wellness and sick exams, vaccinations, microchipping, laser therapy and end-of-life care in MetroWest Boston.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Our services</span>
+      <h1>Comprehensive <em>mobile</em> vet care</h1>
+      <p class="lede">Clear, upfront pricing for the care your pet needs, delivered at your door.</p>
+    </div>
+  </section>
+
+  <section class="wrap house-call-wrap">
+    <div class="house-call">
+      <span class="hc-icon"><Icon name="home" /></span>
+      <div class="hc-body">
+        <h2>House call fee</h2>
+        <p>
+          As a mobile practice, we charge a one-time house call fee per visit to cover travel and time, no matter how many
+          pets we see.
+        </p>
+      </div>
+      <div class="hc-price">
+        <span class="amount">$200</span>
+        <span class="per">per visit</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section services-list">
+    <div class="wrap">
+      <div class="grid">
+        {services.map((s) => (
+          <article class="svc card">
+            <div class="svc-head">
+              <h3>{s.title}</h3>
+              <span class="price">{s.price}</span>
+            </div>
+            <p>{s.text}</p>
+            {s.note && <p class="note">{s.note}</p>}
+          </article>
+        ))}
+      </div>
+
+      <article class="emergency-card card">
+        <h3>Emergency care</h3>
+        <p>
+          For healthy pets, we recommend routine visits every six months to check vital signs and monitor overall health. If
+          your pet gets into something they shouldn’t or sustains an injury, we can respond quickly.
+        </p>
+        <div class="emergency" role="note">
+          <Icon name="alert" />
+          <p>
+            <strong>Serious or life-threatening injury?</strong> Please take your pet immediately to the nearest emergency
+            veterinary center.
+          </p>
+        </div>
+        <h4>Nearby emergency hospitals</h4>
+        <ul class="hospitals">
+          {emergencyHospitals.map((h) => (
+            <li>
+              <a href={h.href} target="_blank" rel="noopener">
+                <span class="h-name">{h.name}</span>
+                <span class="h-town"><Icon name="pin" /> {h.town}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
+
+<style>
+  .house-call {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem 2rem;
+    padding: clamp(24px, 4vw, 40px);
+    border-radius: var(--radius-lg);
+    background: var(--navy);
+    color: rgb(255 255 255 / 0.82);
+  }
+  .hc-icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: rgb(255 255 255 / 0.1);
+    color: var(--sky);
+  }
+  .hc-icon :global(svg) {
+    width: 30px;
+    height: 30px;
+  }
+  .house-call h2 {
+    color: var(--white);
+    font-size: 1.75rem;
+    margin-bottom: 0.4rem;
+  }
+  .house-call p {
+    margin: 0;
+    max-width: 36em;
+  }
+  .hc-price {
+    text-align: right;
+  }
+  .amount {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--white);
+  }
+  .per {
+    font-size: 0.875rem;
+    color: var(--sky);
+  }
+
+  .services-list {
+    padding-top: clamp(40px, 5vw, 56px);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  .svc {
+    padding: 1.75rem 1.9rem;
+  }
+  .svc-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px dashed var(--line);
+  }
+  .price {
+    flex: none;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .svc p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .svc .note {
+    margin-top: 0.75rem;
+    font-size: 0.9063rem;
+    font-style: italic;
+  }
+  .svc:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+  .emergency-card {
+    margin-top: 1.25rem;
+    padding: clamp(24px, 4vw, 40px);
+  }
+  .emergency-card h3 {
+    margin-bottom: 0.8rem;
+  }
+  .emergency-card > p {
+    color: var(--muted);
+    max-width: 48em;
+  }
+  .emergency-card h4 {
+    margin: 2rem 0 1rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .hospitals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .hospitals a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    height: 100%;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--cream);
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .hospitals a:hover {
+    border-color: var(--sky);
+    background: var(--white);
+  }
+  .h-name {
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--navy-deep);
+  }
+  .h-town {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .h-town :global(svg) {
+    width: 14px;
+    height: 14px;
+    color: var(--sky);
+  }
+  .emergency {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgb(224 51 43 / 0.25);
+    border-radius: var(--radius);
+    background: #fdf0ee;
+  }
+  .emergency :global(svg) {
+    width: 24px;
+    height: 24px;
+    flex: none;
+    color: var(--red);
+  }
+  .emergency p {
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .house-call {
+      grid-template-columns: 1fr;
+    }
+    .hc-price {
+      text-align: left;
+    }
+    .grid,
+    .hospitals {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (min-width: 761px) and (max-width: 1000px) {
+    .hospitals {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

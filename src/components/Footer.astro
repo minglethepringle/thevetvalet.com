@@ -1,0 +1,141 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import Icon from './Icon.astro';
+import { nav, contact, url } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <div class="logo-chip">
+        <Image src={logo} alt="Vet Valet" width={150} />
+      </div>
+      <p>Compassionate, in-home veterinary care for the pets of MetroWest Boston.</p>
+    </div>
+    <div>
+      <h2 class="footer-title">Explore</h2>
+      <ul class="footer-links">
+        {nav.map((item) => <li><a href={url(item.href)}>{item.label}</a></li>)}
+        <li><a href={url('/careers/')}>Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-title">Get in touch</h2>
+      <ul class="footer-contact">
+        <li><Icon name="phone" /><span>Call <a href={contact.callHref}>{contact.callDisplay}</a></span></li>
+        <li><Icon name="text" /><span>Text <a href={contact.textHref}>{contact.textDisplay}</a></span></li>
+        <li><Icon name="mail" /><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-title">Hours</h2>
+      <ul class="footer-contact">
+        {contact.hours.map(([days, time]) => (
+          <li><Icon name="clock" /><span>{days}<br /><strong>{time}</strong></span></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© {year} Vet Valet. All rights reserved. · Designed by <a href="https://mingletechsolutions.com/" target="_blank" rel="noopener">Mingle Tech Solutions</a></span>
+    <span>For life-threatening emergencies, go to your nearest emergency veterinary hospital.</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy-deep);
+    color: rgb(255 255 255 / 0.78);
+    padding-top: clamp(56px, 7vw, 80px);
+    font-size: 0.9688rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr 1.1fr 1.1fr;
+    gap: 2.5rem;
+  }
+  .logo-chip {
+    display: inline-block;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: var(--white);
+    margin-bottom: 1.25rem;
+  }
+  .logo-chip img {
+    width: 120px;
+  }
+  .footer-brand p {
+    max-width: 22em;
+  }
+  .footer-title {
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sky);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .footer-links li + li {
+    margin-top: 0.5rem;
+  }
+  a {
+    color: var(--white);
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .footer-contact li {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+  .footer-contact li + li {
+    margin-top: 0.75rem;
+  }
+  .footer-contact :global(svg) {
+    width: 18px;
+    height: 18px;
+    margin-top: 0.2em;
+    flex: none;
+    color: var(--sky);
+  }
+  .footer-contact strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    margin-top: clamp(48px, 6vw, 72px);
+    padding-block: 1.5rem;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    font-size: 0.8438rem;
+    color: rgb(255 255 255 / 0.6);
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 520px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

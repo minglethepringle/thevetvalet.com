@@ -1,0 +1,182 @@
+---
+import { url } from '../data/site';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import CallToAction from '../components/CallToAction.astro';
+import ryan from '../assets/team/deirdre-ryan.png';
+import heininger from '../assets/team/natalie-heininger.jpg';
+import tucker from '../assets/team/tyler-murphy-tucker.png';
+import dantona from '../assets/team/cindy-dantona.png';
+import white from '../assets/team/maureen-white.png';
+
+const team = [
+  {
+    name: 'Dr. Deirdre Ryan',
+    role: 'Founder & Veterinarian',
+    image: ryan,
+    bio: [
+      'Dr. Ryan’s journey to veterinary medicine began on her grandfather’s dairy farm, where, while bottle-feeding a calf, she realized her calling to care for animals. She earned a BA in Psychology from Harvard University and a Doctor of Veterinary Medicine from the Cummings School of Veterinary Medicine at Tufts University, where she received awards for excellence in small animal medicine and surgery. She then completed a post-doctoral internship at Angell Memorial Animal Hospital in Boston, MA.',
+      'Dr. Ryan spent 13 years as an associate at Wellesley Natick Veterinary Hospital and later served as Technical Services Veterinarian and New England Regional Manager at BLUE Buffalo Company. Returning to her passion for hands-on care, she founded VetValet to bring high-quality, in-home veterinary care to pets while providing convenience for their owners. Dr. Ryan lives in Wayland, MA with her husband, three daughters, two dogs, and two cats. Outside of work, she enjoys hiking, skiing, tennis, travel, learning about other cultures, and being a proud hockey mom!',
+    ],
+  },
+  {
+    name: 'Dr. Natalie Heininger',
+    role: 'Veterinarian',
+    image: heininger,
+    bio: [
+      'Dr. Heininger grew up in Holden, MA. After earning an A.B. in Ecology and Evolutionary Biology from Princeton University, she attended the Cummings School of Veterinary Medicine at Tufts University. Prior to joining VetValet, she spent ten years working in small animal general practice.',
+      'Natalie lives in Wayland with her husband and two children. When she’s not caring for animals, she enjoys trying new recipes, taking family trips to the beach, snowboarding, and watching the Patriots.',
+    ],
+  },
+  {
+    name: 'Dr. Tyler Murphy-Tucker',
+    role: 'Veterinarian',
+    image: tucker,
+    bio: [
+      'Dr. Murphy-Tucker grew up in Massachusetts and earned her Bachelor of Science in Biology, with minors in Chemistry and Psychology, from Westfield State University in 2010. She graduated from Ross University School of Veterinary Medicine in 2015 and completed her final clinical year at Virginia-Maryland College of Veterinary Medicine. Her special interests include pain management, nutrition, and integrative medicine, with a particular soft spot for her geriatric patients.',
+      'Over the past 10 years, Dr. Tucker has worked in both traditional brick-and-mortar general practices and mobile veterinary care before joining VetValet. Outside of veterinary medicine, she enjoys spending time outdoors, traveling, and being with friends and family. Dr. Tucker lives at home with her husband, three children, and a frequent rotation of foster dogs.',
+    ],
+  },
+  {
+    name: 'Cindy D’Antona, CVT',
+    role: 'Certified Veterinary Technician',
+    image: dantona,
+    bio: [
+      'Cindy is a Certified Veterinary Technician who earned a BA in Psychology from Framingham State College. While pursuing a Master’s degree in California, she discovered a stronger passion for her biology and anatomy courses and decided to shift her focus, ultimately earning an Associate’s Degree in Veterinary Technology from Pierce College in Woodland Hills, CA.',
+      'Cindy has been working as a veterinary technician for over 20 years. She is certified in small animal massage therapy through the Bancroft School of Massage Therapy and is also Fear Free Certified. Outside of work, Cindy enjoys gardening, boxing, kayaking, biking, painting, and spending time with her husband, two children, and their cat and dog.',
+    ],
+  },
+  {
+    name: 'Maureen White',
+    role: 'Office Manager',
+    image: white,
+    bio: [
+      'Maureen is VetValet’s Office Manager. Before joining VetValet, she gained experience in HR and administration across a variety of fields, including legal, medical, and home renovation. Outside of work, Maureen loves to travel and is always planning the next family adventure.',
+    ],
+  },
+];
+---
+<Base title="About" description="Meet the Vet Valet team: licensed veterinarians and staff bringing compassionate, in-home care to pets across MetroWest Boston.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Compassionate home care</span>
+      <h1>Meet your <em>dedicated</em> team</h1>
+      <p class="lede">
+        Vet Valet is a privately operated, fully women-owned practice. Our veterinarians and staff bring decades of combined
+        experience, and a genuine love of animals, to every house call.
+      </p>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="wrap">
+      {team.map((person) => (
+        <article class="member">
+          <div class="portrait">
+            <Image src={person.image} alt={`Portrait of ${person.name}`} widths={[280, 440]} sizes="(max-width: 760px) 240px, 280px" />
+          </div>
+          <div class="member-body">
+            <span class="role">{person.role}</span>
+            <h2>{person.name}</h2>
+            {person.bio.map((para) => <p>{para}</p>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section join">
+    <div class="wrap join-inner card">
+      <div>
+        <h2>Want to join our team?</h2>
+        <p>We’re always happy to hear from caring, talented people.</p>
+      </div>
+      <a href={url('/careers/')} class="btn btn-primary">Employment opportunities <Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
+
+<style>
+  .team-section {
+    padding-bottom: clamp(24px, 4vw, 40px);
+  }
+  .member {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+    padding-block: clamp(40px, 5vw, 56px);
+    border-top: 1px solid var(--line);
+  }
+  .member:nth-child(even) .portrait {
+    order: 2;
+  }
+  .member:nth-child(even) {
+    grid-template-columns: 1fr 280px;
+  }
+  .portrait img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50% 50% var(--radius) var(--radius);
+    background: var(--sky-soft);
+  }
+  .member:nth-child(odd) .portrait img {
+    border-radius: 50% 50% var(--radius) 50%;
+  }
+  .member:nth-child(even) .portrait img {
+    border-radius: 50% 50% 50% var(--radius);
+  }
+  .role {
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    padding: 0.3em 0.85em;
+    border-radius: 999px;
+    background: var(--sky-soft);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .member h2 {
+    margin-bottom: 1.1rem;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+  }
+  .member p {
+    color: var(--muted);
+    max-width: 42em;
+  }
+  .join {
+    padding-block: clamp(24px, 4vw, 40px) clamp(48px, 6vw, 72px);
+  }
+  .join-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(28px, 4vw, 44px);
+  }
+  .join h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin-bottom: 0.4rem;
+  }
+  .join p {
+    margin: 0;
+    color: var(--muted);
+  }
+  @media (max-width: 760px) {
+    .member,
+    .member:nth-child(even) {
+      grid-template-columns: 1fr;
+    }
+    .member:nth-child(even) .portrait {
+      order: 0;
+    }
+    .portrait {
+      max-width: 220px;
+    }
+  }
+</style>
