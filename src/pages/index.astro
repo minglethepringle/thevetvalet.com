@@ -54,12 +54,11 @@ const team = [ryan, heininger, tucker, dantona, white];
         </p>
         <div class="hero-actions">
           <a href={url('/contact/')} class="btn btn-primary">Schedule an appointment <Icon name="arrow" /></a>
-          <a href={contact.callHref} class="btn btn-ghost"><Icon name="phone" /> {contact.callDisplay}</a>
+          <a href={contact.textHref} class="btn btn-ghost"><Icon name="text" /> Text {contact.textDisplay}</a>
         </div>
         <ul class="hero-facts">
           <li><Icon name="pin" /> MetroWest Boston</li>
           <li><Icon name="clock" /> Mon–Fri, 8:30–4:30</li>
-          <li><Icon name="heart" /> Licensed veterinarians</li>
         </ul>
       </div>
       <div class="hero-media">
@@ -194,7 +193,7 @@ const team = [ryan, heininger, tucker, dantona, white];
   }
   .hero h1 {
     margin-bottom: 1.5rem;
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-size: clamp(2.125rem, 4.5vw, 3.375rem);
   }
   .hero-actions {
     display: flex;
@@ -205,7 +204,7 @@ const team = [ryan, heininger, tucker, dantona, white];
   .hero-facts {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem 1.5rem;
+    gap: 0.75rem 3rem;
     margin: 2.25rem 0 0;
     padding: 1.5rem 0 0;
     list-style: none;

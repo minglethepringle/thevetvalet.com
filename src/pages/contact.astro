@@ -19,12 +19,12 @@ import { contact, FORMSPREE_ID, url } from '../data/site';
           <h2>Contact us</h2>
           <ul>
             <li>
-              <span class="ic"><Icon name="phone" /></span>
-              <div><span class="label">Call</span><a href={contact.callHref}>{contact.callDisplay}</a></div>
-            </li>
-            <li>
               <span class="ic"><Icon name="text" /></span>
               <div><span class="label">Text</span><a href={contact.textHref}>{contact.textDisplay}</a></div>
+            </li>
+            <li>
+              <span class="ic"><Icon name="phone" /></span>
+              <div><span class="label">Call</span><a href={contact.callHref}>{contact.callDisplay}</a></div>
             </li>
             <li>
               <span class="ic"><Icon name="mail" /></span>
@@ -43,7 +43,6 @@ import { contact, FORMSPREE_ID, url } from '../data/site';
             ))}
           </ul>
         </div>
-        <a href={url('/careers/')} class="text-link">Employment opportunities <Icon name="arrow" /></a>
       </aside>
 
       <div class="form-card card">

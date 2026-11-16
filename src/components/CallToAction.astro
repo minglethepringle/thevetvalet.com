@@ -5,10 +5,8 @@ import { contact, url } from '../data/site';
 interface Props {
   title?: string;
   text?: string;
-  button?: string;
 }
 const {
-  button = 'Schedule an appointment',
   title = 'Take the first step today',
   text = 'Tell us a little about your pet and where you live, and we’ll be in touch to schedule a visit.',
 } = Astro.props;
@@ -22,8 +20,8 @@ const {
         <p>{text}</p>
       </div>
       <div class="cta-actions">
-        <a href={url('/contact/')} class="btn btn-light">{button} <Icon name="arrow" /></a>
-        <a href={contact.callHref} class="cta-phone"><Icon name="phone" /> {contact.callDisplay}</a>
+        <a href={url('/contact/')} class="btn btn-light">Schedule an appointment <Icon name="arrow" /></a>
+        <a href={contact.textHref} class="cta-phone"><Icon name="text" /> Text {contact.textDisplay}</a>
       </div>
       <svg class="paw" viewBox="0 0 100 100" aria-hidden="true">
         <ellipse cx="50" cy="66" rx="22" ry="18" />

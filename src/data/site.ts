@@ -9,7 +9,6 @@ export const contact = {
   email: 'office@thevetvalet.com',
   hours: [
     ['Monday – Friday', '8:30am – 4:30pm'],
-    ['Weekends & evenings', 'Upon individual request'],
   ],
 };
 
