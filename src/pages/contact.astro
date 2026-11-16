@@ -1,9 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { contact, FORMSPREE_ID, url } from '../data/site';
+import { contact, FORMSPREE_ID, url, pageMeta } from '../data/site';
 ---
-<Base title="Contact" description="Contact Vet Valet to schedule an in-home veterinary visit in MetroWest Boston. Call, text, email or send us a message.">
+<Base {...pageMeta['/contact/']} page={{ '@type': 'ContactPage' }}>
   <section class="page-hero">
     <div class="wrap">
       <span class="eyebrow">Get in touch</span>

@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { pageMeta } from '../data/site';
+import { schemaIds } from '../data/schema';
 import CallToAction from '../components/CallToAction.astro';
 import ryan from '../assets/team/deirdre-ryan.png';
 import heininger from '../assets/team/natalie-heininger.jpg';
@@ -54,8 +56,16 @@ const team = [
     ],
   },
 ];
+const businessId = schemaIds(Astro.site!).business;
+const people = team.map((person) => ({
+  '@type': 'Person',
+  name: person.name,
+  jobTitle: person.role,
+  image: new URL(person.image.src, Astro.site).href,
+  worksFor: { '@id': businessId },
+}));
 ---
-<Base title="About" description="Meet the Vet Valet team: licensed veterinarians and staff bringing compassionate, in-home care to pets across MetroWest Boston.">
+<Base {...pageMeta['/about/']} page={{ '@type': 'AboutPage', mainEntity: { '@id': businessId } }} graph={people}>
   <section class="page-hero">
     <div class="wrap">
       <span class="eyebrow">Compassionate home care</span>

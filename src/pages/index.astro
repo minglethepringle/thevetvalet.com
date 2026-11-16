@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import CallToAction from '../components/CallToAction.astro';
-import { contact, url } from '../data/site';
+import { contact, url, pageMeta } from '../data/site';
 import hero from '../assets/photos/hero.jpg';
 import mission from '../assets/photos/mission.png';
 import wellness from '../assets/photos/wellness.png';
@@ -41,7 +41,7 @@ const steps = [
 
 const team = [ryan, heininger, tucker, dantona, white];
 ---
-<Base title="Home">
+<Base {...pageMeta['/']}>
   <!-- Hero -->
   <section class="hero">
     <div class="wrap hero-grid">

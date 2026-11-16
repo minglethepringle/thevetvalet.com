@@ -2,35 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import CallToAction from '../components/CallToAction.astro';
-
-const services = [
-  {
-    title: 'Sick & wellness exams',
-    price: '$105',
-    text: 'For a healthy pet, we recommend a visit every six months. At each visit we record all vital signs and give a thorough assessment of your pet’s overall health.',
-  },
-  {
-    title: 'Vaccinations',
-    price: '$40 – $60',
-    text: 'Keep your pet’s vaccinations up to date without the stress of travel or waiting rooms. We give timely, professional vaccinations in the comfort of your home.',
-  },
-  {
-    title: 'Microchipping',
-    price: '$75',
-    text: 'A lost or wandering pet can be heartbreaking. Quick, simple microchip placement helps make sure your pet can be identified anywhere in the world.',
-  },
-  {
-    title: 'Laser treatment',
-    price: 'Varies',
-    note: 'Pricing depends on the size of your pet and the treatment area.',
-    text: 'Many pets live with chronic issues like arthritis, back pain, post-surgical trauma and ear infections. This non-invasive, pain-free treatment stimulates injured cells to support faster healing and recovery.',
-  },
-  {
-    title: 'End-of-life care',
-    price: '$525',
-    text: 'We offer compassionate in-home euthanasia for our established clients, so pets can stay comfortable in a familiar place. We also help coordinate aftercare services.',
-  },
-];
+import { houseCallFee, services, pageMeta } from '../data/site';
 
 const emergencyHospitals = [
   { name: 'Angell', town: 'Boston', href: 'https://www.mspca.org/veterinarycare/hospital-locations/boston/24-7-emergency-critical-care' },
@@ -41,7 +13,7 @@ const emergencyHospitals = [
   { name: 'Westford Veterinary', town: 'Westford', href: 'https://westfordveterinary.com' },
 ];
 ---
-<Base title="Services" description="In-home veterinary services and pricing: house calls, wellness and sick exams, vaccinations, microchipping, laser therapy and end-of-life care in MetroWest Boston.">
+<Base {...pageMeta['/services/']}>
   <section class="page-hero">
     <div class="wrap">
       <span class="eyebrow">Our services</span>
@@ -61,7 +33,7 @@ const emergencyHospitals = [
         </p>
       </div>
       <div class="hc-price">
-        <span class="amount">$200</span>
+        <span class="amount">{houseCallFee.price}</span>
         <span class="per">per visit</span>
       </div>
     </div>
