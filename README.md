@@ -11,13 +11,6 @@ npm run build    # outputs static files to dist/
 npm run preview  # serve dist/ locally
 ```
 
-## Contact form (Formspree)
-
-1. Create a form at https://formspree.io and copy its ID (the part after `/f/` in the endpoint).
-2. Set `FORMSPREE_ID` in `src/data/site.ts`.
-
-The form submits via `fetch` and shows an inline success/error message; without JavaScript it falls back to a normal POST. Fields sent: `name`, `email`, `phone`, `city`, `pet_details`, `message`, plus Formspree's `_subject` and `_gotcha` (honeypot).
-
 ## Editing content
 
 - Phone, email, hours, nav and service towns: `src/data/site.ts`
