@@ -1,8 +1,7 @@
 import { defineConfig } from 'astro/config';
 
-// SITE and BASE_PATH are set by the GitHub Pages workflow while the site lives at
-// minglethepringle.github.io/thevetvalet.com. Once thevetvalet.com points at GitHub Pages,
-// remove them from the workflow and these defaults take over.
+// Served from the root of thevetvalet.com. Set SITE and BASE_PATH to build for another
+// location, e.g. BASE_PATH=/thevetvalet.com for minglethepringle.github.io/thevetvalet.com.
 export default defineConfig({
   site: process.env.SITE ?? 'https://thevetvalet.com',
   base: process.env.BASE_PATH ?? '/',

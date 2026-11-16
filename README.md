@@ -27,4 +27,4 @@ The form submits via `fetch` and shows an inline success/error message; without 
 
 ## Deploy
 
-`dist/` is plain HTML/CSS/JS and can go on any static host (Cloudflare Pages, Netlify, GitHub Pages, Vercel). Build command `npm run build`, output directory `dist`.
+Pushing to `main` builds the site and deploys it to GitHub Pages at https://thevetvalet.com (`.github/workflows/deploy.yml`). `dist/` is plain HTML/CSS/JS, so it also works on any other static host.
