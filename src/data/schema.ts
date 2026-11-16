@@ -30,6 +30,7 @@ export function businessNode(site: URL, logoSrc: string): Node {
     slogan: business.tagline,
     description: business.description,
     url: absolute(site, '/'),
+    ...(business.sameAs.length > 0 && { sameAs: business.sameAs }),
     logo: new URL(logoSrc, site).href,
     image: absolute(site, '/og.jpg'),
     telephone: contact.callHref.replace('tel:', ''),
@@ -58,7 +59,6 @@ export function businessNode(site: URL, logoSrc: string): Node {
         ...services.map((s) => offer(s, ids.business)),
       ],
     },
-    ...(business.sameAs.length > 0 && { sameAs: business.sameAs }),
   };
 }
 

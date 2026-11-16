@@ -21,7 +21,11 @@ export const business = {
   },
   openingHours: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:30', closes: '16:30' },
   // Public profiles (Google Business Profile, Facebook, Yelp…) for JSON-LD sameAs. Add real URLs only.
-  sameAs: [] as string[],
+  sameAs: [
+    'https://www.google.com/maps?cid=12071029816094578816', // Google Business Profile (Maps CID)
+    'https://www.facebook.com/Vetvalet/',
+    'https://www.yelp.com/biz/vet-valet-wayland',
+  ],
 };
 
 export const houseCallFee = { label: 'House call fee', price: '$200', amount: 200 };
