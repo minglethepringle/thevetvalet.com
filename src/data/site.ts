@@ -4,6 +4,7 @@ export const FORMSPREE_ID = 'mljbjkyw';
 // Social profiles: shown as footer icons and listed in JSON-LD sameAs.
 export const social = [
   { name: 'Facebook', href: 'https://www.facebook.com/Vetvalet/', icon: 'facebook' },
+  { name: 'Instagram', href: 'https://www.instagram.com/vetvalet/', icon: 'instagram' },
   { name: 'Yelp', href: 'https://www.yelp.com/biz/vet-valet-wayland', icon: 'yelp' },
 ] as const;
 

@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { business, contact, houseCallFee, pageMeta, services, towns } from '../data/site';
+import { business, contact, houseCallFee, pageMeta, services, social, towns } from '../data/site';
 import { absolute } from '../data/schema';
 
 // A Markdown summary of the practice for AI assistants (https://llmstxt.org).
@@ -22,6 +22,7 @@ ${business.description}
 - Service area: ${business.region}, Massachusetts. Towns: ${towns.map((t) => t.name + (t.partial ? ' (partial)' : '')).join(', ')}
 - Hours: ${hours}
 - Call: ${contact.callDisplay}. Text: ${contact.textDisplay}. Email: ${contact.email}
+- Profiles: [Google Business Profile](${business.sameAs[0]}), ${social.map((s) => `[${s.name}](${s.href})`).join(', ')}
 - Surgery and hospital care: through partner AdaVet, a full-service animal hospital in Wayland Town Center
 - Emergencies: for serious or life-threatening injuries, go to the nearest emergency veterinary hospital
 
