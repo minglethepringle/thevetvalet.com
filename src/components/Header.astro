@@ -34,13 +34,21 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
     </nav>
   </div>
 </header>
+<div class="nav-backdrop" aria-hidden="true"></div>
 
 <script>
   const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
-  toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-    document.body.classList.toggle('nav-open', !open);
+  const setOpen = (open: boolean) => {
+    toggle?.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-open', open);
+  };
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  document.querySelector('.nav-backdrop')?.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
+      setOpen(false);
+      toggle?.focus();
+    }
   });
 </script>
 
@@ -73,10 +81,10 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgb(251 248 243 / 0.88);
+    background: rgb(251 248 243 / 0.97);
     backdrop-filter: saturate(1.4) blur(12px);
     -webkit-backdrop-filter: saturate(1.4) blur(12px);
-    border-bottom: 1px solid rgb(230 223 211 / 0.7);
+    border-bottom: 1px solid var(--line);
   }
   .header-inner {
     display: flex;
@@ -118,6 +126,9 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
     color: var(--navy-deep);
     font-weight: 600;
   }
+  .nav-backdrop {
+    display: none;
+  }
   .nav-cta {
     padding: 0.8em 1.35em;
   }
@@ -132,8 +143,12 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
     cursor: pointer;
   }
   .menu-toggle :global(svg) {
+    display: block;
     width: 22px;
     height: 22px;
+  }
+  .icon-open {
+    display: block;
   }
   .icon-close {
     display: none;
@@ -154,7 +169,11 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
       place-items: center;
     }
     .site-nav {
-      display: none;
+      display: flex;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
       position: absolute;
       top: 100%;
       left: 0;
@@ -175,13 +194,42 @@ const path = Astro.url.pathname.replace(/\/?$/, '/');
       font-size: 1.125rem;
     }
     :global(body.nav-open) .site-nav {
-      display: flex;
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
+    }
+    .nav-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgb(26 29 79 / 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    }
+    :global(body.nav-open) .nav-backdrop {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.25s ease, visibility 0s;
+    }
+    :global(body.nav-open) {
+      overflow: hidden;
     }
     :global(body.nav-open) .icon-open {
       display: none;
     }
     :global(body.nav-open) .icon-close {
       display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav,
+    .nav-backdrop {
+      transition: none !important;
+      transform: none !important;
     }
   }
 </style>

@@ -1,6 +1,12 @@
 // Formspree form ID (the part after /f/ in the endpoint URL).
 export const FORMSPREE_ID = 'mljbjkyw';
 
+// Social profiles: shown as footer icons and listed in JSON-LD sameAs.
+export const social = [
+  { name: 'Facebook', href: 'https://www.facebook.com/Vetvalet/', icon: 'facebook' },
+  { name: 'Yelp', href: 'https://www.yelp.com/biz/vet-valet-wayland', icon: 'yelp' },
+] as const;
+
 // Core business facts. One source for page metadata, JSON-LD, llms.txt and listings such as
 // Google Business Profile, so they all describe Vet Valet the same way.
 export const business = {
@@ -23,9 +29,8 @@ export const business = {
   // Public profiles (Google Business Profile, Facebook, Yelp…) for JSON-LD sameAs. Add real URLs only.
   sameAs: [
     'https://www.google.com/maps?cid=12071029816094578816', // Google Business Profile (Maps CID)
-    'https://www.facebook.com/Vetvalet/',
-    'https://www.yelp.com/biz/vet-valet-wayland',
-  ],
+    ...social.map((s) => s.href),
+  ] as string[],
 };
 
 export const houseCallFee = { label: 'House call fee', price: '$200', amount: 200 };
