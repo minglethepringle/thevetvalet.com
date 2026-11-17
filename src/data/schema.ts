@@ -33,7 +33,7 @@ export function businessNode(site: URL, logoSrc: string): Node {
     ...(business.sameAs.length > 0 && { sameAs: business.sameAs }),
     logo: new URL(logoSrc, site).href,
     image: absolute(site, '/og.jpg'),
-    telephone: contact.callHref.replace('tel:', ''),
+    telephone: contact.textHref.replace('sms:', ''),
     email: contact.email,
     // Service-area business: no public street address, so only the region is given.
     address: { '@type': 'PostalAddress', addressRegion: 'MA', addressCountry: 'US' },

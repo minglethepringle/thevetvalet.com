@@ -23,10 +23,6 @@ import { contact, FORMSPREE_ID, url, pageMeta } from '../data/site';
               <div><span class="label">Text</span><a href={contact.textHref}>{contact.textDisplay}</a></div>
             </li>
             <li>
-              <span class="ic"><Icon name="phone" /></span>
-              <div><span class="label">Call</span><a href={contact.callHref}>{contact.callDisplay}</a></div>
-            </li>
-            <li>
               <span class="ic"><Icon name="mail" /></span>
               <div><span class="label">Email</span><a href={`mailto:${contact.email}`}>{contact.email}</a></div>
             </li>
@@ -110,7 +106,7 @@ import { contact, FORMSPREE_ID, url, pageMeta } from '../data/site';
       status.textContent = 'Thank you! Your message has been sent and we’ll be in touch soon.';
     } catch {
       status.classList.add('err');
-      status.textContent = 'Sorry, something went wrong. Please call or email us instead.';
+      status.textContent = 'Sorry, something went wrong. Please text or email us instead.';
     } finally {
       button.disabled = false;
     }

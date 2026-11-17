@@ -21,7 +21,7 @@ ${business.description}
 - Patients: dogs and cats only
 - Service area: ${business.region}, Massachusetts. Towns: ${towns.map((t) => t.name + (t.partial ? ' (partial)' : '')).join(', ')}
 - Hours: ${hours}
-- Call: ${contact.callDisplay}. Text: ${contact.textDisplay}. Email: ${contact.email}
+- Text: ${contact.textDisplay}. Email: ${contact.email}
 - Profiles: [Google Business Profile](${business.sameAs[0]}), ${social.map((s) => `[${s.name}](${s.href})`).join(', ')}
 - Surgery and hospital care: through partner AdaVet, a full-service animal hospital in Wayland Town Center
 - Emergencies: for serious or life-threatening injuries, go to the nearest emergency veterinary hospital

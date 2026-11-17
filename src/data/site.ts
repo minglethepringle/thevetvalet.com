@@ -20,7 +20,7 @@ export const business = {
     'Vet Valet brings licensed vets to dogs and cats at home in MetroWest Boston: wellness and sick exams, vaccines, microchips, laser therapy and end-of-life care.',
   // Long description: JSON-LD, llms.txt, and Google Business Profile (750 characters max, no links or prices).
   description:
-    'Vet Valet is a women-owned mobile veterinary practice for dogs and cats in MetroWest Boston. Our licensed veterinarians come to your home, so your pet gets expert care without carriers, car rides or waiting rooms. We offer wellness and sick exams, vaccinations, microchipping, laser therapy for pain and healing, and compassionate in-home end-of-life care. Founded by Dr. Deirdre Ryan, a Tufts-trained veterinarian, we serve Ashland, Bedford, Belmont, Concord, Dedham, Dover, Lexington, Lincoln, Natick, Needham, Newton, Sherborn, Sudbury, Waltham, Wayland, Wellesley and Weston. When a pet needs surgery or hospital care, we work closely with AdaVet in Wayland Town Center. Call or text to schedule.',
+    'Vet Valet is a women-owned mobile veterinary practice for dogs and cats in MetroWest Boston. Our licensed veterinarians come to your home, so your pet gets expert care without carriers, car rides or waiting rooms. We offer wellness and sick exams, vaccinations, microchipping, laser therapy for pain and healing, and compassionate in-home end-of-life care. Founded by Dr. Deirdre Ryan, a Tufts-trained veterinarian, we serve Ashland, Bedford, Belmont, Concord, Dedham, Dover, Lexington, Lincoln, Natick, Needham, Newton, Sherborn, Sudbury, Waltham, Wayland, Wellesley and Weston. When a pet needs surgery or hospital care, we work closely with AdaVet in Wayland Town Center. Text or email us to schedule.',
   founder: {
     name: 'Dr. Deirdre Ryan',
     jobTitle: 'Founder & Veterinarian',
@@ -78,8 +78,6 @@ export const services: {
 ];
 
 export const contact = {
-  callDisplay: '(617) 992-8773',
-  callHref: 'tel:+16179928773',
   textDisplay: '(508) 456-5588',
   textHref: 'sms:+15084565588',
   email: 'office@thevetvalet.com',
@@ -120,7 +118,7 @@ export const pageMeta = {
   '/contact/': {
     title: 'Book an In-Home Vet Visit | Vet Valet',
     description:
-      'Contact Vet Valet to schedule an in-home veterinary visit in MetroWest Boston. Call, text, email or send us a message.',
+      'Contact Vet Valet to schedule an in-home veterinary visit in MetroWest Boston. Text, email or send us a message.',
   },
 };
 
