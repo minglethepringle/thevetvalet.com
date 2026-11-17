@@ -1,0 +1,33 @@
+---
+import { towns } from '../data/site';
+---
+<ul class="towns">
+  {towns.map((t) => <li class={t.partial ? 'partial' : undefined}>{t.name}{t.partial && <span aria-label="partial coverage">*</span>}</li>)}
+</ul>
+<p class="small">* Towns we cover partially. Contact us with your address to confirm you’re in our coverage area.</p>
+
+<style>
+  .towns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .towns li {
+    padding: 0.35em 0.9em;
+    border-radius: 999px;
+    background: var(--sky-soft);
+    color: var(--navy-deep);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  .towns li.partial {
+    background: var(--cream);
+    border: 1px dashed var(--line);
+  }
+  .small {
+    font-size: 0.9063rem;
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import TownList from '../components/TownList.astro';
 import { contact, FORMSPREE_ID, url, pageMeta } from '../data/site';
 ---
 <Base {...pageMeta['/contact/']} page={{ '@type': 'ContactPage' }}>
@@ -38,6 +39,11 @@ import { contact, FORMSPREE_ID, url, pageMeta } from '../data/site';
               </li>
             ))}
           </ul>
+        </div>
+        <div class="info-card card">
+          <h2>Service area</h2>
+          <p class="area-intro">We visit homes throughout MetroWest Boston, including:</p>
+          <TownList />
         </div>
       </aside>
 
@@ -168,6 +174,14 @@ import { contact, FORMSPREE_ID, url, pageMeta } from '../data/site';
   .label {
     display: block;
     font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .area-intro {
+    margin-bottom: 1rem;
+    color: var(--muted);
+  }
+  .info-card :global(.small) {
+    margin: 0;
     color: var(--muted);
   }
   .info-card a,

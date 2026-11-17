@@ -8,5 +8,5 @@ export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
   trailingSlash: 'ignore',
   devToolbar: { enabled: false },
-  integrations: [sitemap()],
+  integrations: [sitemap({ lastmod: new Date() })],
 });

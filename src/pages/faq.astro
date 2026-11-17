@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import CallToAction from '../components/CallToAction.astro';
-import { pageMeta, towns, url } from '../data/site';
+import TownList from '../components/TownList.astro';
+import { contact, houseCallFee, pageMeta, towns, url } from '../data/site';
 
 // Plain-text answers for FAQPage structured data. Keep in sync with the visible answers below.
 const faqs = [
@@ -11,8 +12,24 @@ const faqs = [
   ],
   ['What animals do you see?', 'Vet Valet cares for dogs and cats only.'],
   [
+    'How much does a house call cost?',
+    `We charge a one-time ${houseCallFee.price} house call fee per visit to cover travel and time, no matter how many pets we see. Exams, vaccines and other services are priced separately; see our services page for current pricing.`,
+  ],
+  [
+    'How do I book an appointment?',
+    `Text us at ${contact.textDisplay}, email ${contact.email}, or send a message through our contact page with your address and a few details about your pet.`,
+  ],
+  [
     'What should I do before a visit?',
     'Set up a well-lit, quiet and calm area in your home so our team can comfortably examine your pet. For cats, contain them in a small, quiet space with limited hiding spots; bathrooms work well. If your veterinarian has prescribed anti-anxiety medication, give it about 2–3 hours before the appointment. Annual wellness exams and diarrhea-related sick visits require a fecal sample: collect it as close to the appointment as possible, double-bag it and keep it refrigerated.',
+  ],
+  [
+    'Do you handle emergencies?',
+    'If your pet gets into something they shouldn’t or sustains an injury, text us and we can respond quickly. For serious or life-threatening injuries, take your pet immediately to the nearest emergency veterinary hospital. Nearby emergency hospitals are listed on our services page.',
+  ],
+  [
+    'Do you offer in-home euthanasia?',
+    'Yes. We offer compassionate in-home euthanasia for our established clients, so pets can stay comfortable in a familiar place. We also help coordinate aftercare services.',
   ],
   [
     'Where do I get prescription medications for my pet?',
@@ -32,26 +49,45 @@ const faqs = [
   <section class="section faq">
     <div class="wrap faq-wrap">
       <details open>
-        <summary>What areas do you serve?</summary>
+        <summary><h2 class="q">What areas do you serve?</h2></summary>
         <div class="answer">
           <p>We proudly provide mobile veterinary services throughout MetroWest. Our service area includes:</p>
-          <ul class="towns">
-            {towns.map((t) => <li class={t.partial ? 'partial' : undefined}>{t.name}{t.partial && <span aria-label="partial coverage">*</span>}</li>)}
-          </ul>
-          <p class="small">* Towns we cover partially. Contact us with your address to confirm you’re in our coverage area.</p>
+          <TownList />
           <p>If you’re unsure whether your location is within our service area, please <a href={url('/contact/')}>contact us</a>. We’re happy to help!</p>
         </div>
       </details>
 
       <details>
-        <summary>What animals do you see?</summary>
+        <summary><h2 class="q">What animals do you see?</h2></summary>
         <div class="answer">
           <p>Vet Valet cares for dogs and cats only.</p>
         </div>
       </details>
 
       <details>
-        <summary>What should I do before a visit?</summary>
+        <summary><h2 class="q">How much does a house call cost?</h2></summary>
+        <div class="answer">
+          <p>
+            We charge a one-time {houseCallFee.price} house call fee per visit to cover travel and time, no matter how many
+            pets we see. Exams, vaccines and other services are priced separately. See our
+            <a href={url('/services/')}>services page</a> for current pricing.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary><h2 class="q">How do I book an appointment?</h2></summary>
+        <div class="answer">
+          <p>
+            Text us at <a href={contact.textHref}>{contact.textDisplay}</a>, email
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>, or <a href={url('/contact/')}>send us a message</a> with
+            your address and a few details about your pet.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary><h2 class="q">What should I do before a visit?</h2></summary>
         <div class="answer">
           <p>
             Please set up a well-lit, quiet and calm area in your home to help our team comfortably examine your pet. For cats,
@@ -69,7 +105,30 @@ const faqs = [
       </details>
 
       <details>
-        <summary>Where do I get prescription medications for my pet?</summary>
+        <summary><h2 class="q">Do you handle emergencies?</h2></summary>
+        <div class="answer">
+          <p>
+            If your pet gets into something they shouldn’t or sustains an injury, text us and we can respond quickly.
+          </p>
+          <p>
+            For serious or life-threatening injuries, please take your pet immediately to the nearest emergency veterinary
+            hospital. See our <a href={url('/services/')}>services page</a> for a list of nearby emergency hospitals.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary><h2 class="q">Do you offer in-home euthanasia?</h2></summary>
+        <div class="answer">
+          <p>
+            Yes. We offer compassionate in-home euthanasia for our established clients, so pets can stay comfortable in a
+            familiar place. We also help coordinate aftercare services.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary><h2 class="q">Where do I get prescription medications for my pet?</h2></summary>
         <div class="answer">
           <p>Our online, full-service pharmacy offers a wide range of pet care products, including:</p>
           <ul class="ticks">
@@ -120,6 +179,13 @@ const faqs = [
     cursor: pointer;
     list-style: none;
   }
+  .q {
+    display: inline;
+    margin: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
   summary::-webkit-details-marker {
     display: none;
   }
@@ -145,26 +211,6 @@ const faqs = [
   .answer a {
     color: var(--navy);
     font-weight: 600;
-  }
-  .towns {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0 0 1rem;
-    padding: 0;
-    list-style: none;
-  }
-  .towns li {
-    padding: 0.35em 0.9em;
-    border-radius: 999px;
-    background: var(--sky-soft);
-    color: var(--navy-deep);
-    font-size: 0.9375rem;
-    font-weight: 500;
-  }
-  .towns li.partial {
-    background: var(--cream);
-    border: 1px dashed var(--line);
   }
   .small {
     font-size: 0.9063rem;
