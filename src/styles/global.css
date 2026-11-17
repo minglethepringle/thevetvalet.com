@@ -85,8 +85,10 @@ h2 em {
   font-style: italic;
   font-weight: 400;
   color: var(--navy);
-  background: linear-gradient(transparent 62%, var(--sky-soft) 62%, var(--sky-soft) 92%, transparent 92%);
-  padding: 0 0.08em;
+  /* Hand-drawn red swoosh: stands out against the soft sky-blue glows behind page heroes. */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M3 9C55 3.5 125 2 197 5.5' fill='none' stroke='%23e0332b' stroke-width='2.5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
+    no-repeat left bottom / 100% 0.3em;
+  padding: 0 0.04em 0.14em;
   white-space: nowrap;
 }
 
